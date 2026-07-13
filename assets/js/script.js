@@ -246,8 +246,46 @@ $(function () {
     }
   });
 
+  $("#contactConsent").on("change", function () {
+    const $form = $("#quoteForm");
+    const showError = $form.hasClass("was-validated") && !this.checked;
+
+    $(this)
+      .toggleClass("is-invalid", showError)
+      .attr("aria-invalid", String(showError));
+    $(this).closest(".consent-check").toggleClass("has-error", showError);
+
+    if (this.checked && $form.get(0).checkValidity()) {
+      $("#formStatus").removeClass("is-error is-success").text("");
+    }
+  });
+
   $("#quoteForm").on("submit", function (event) {
     event.preventDefault();
+
+    const $form = $(this);
+    const $consent = $("#contactConsent");
+    const consentAccepted = $consent.prop("checked");
+
+    $form.addClass("was-validated");
+    $consent
+      .toggleClass("is-invalid", !consentAccepted)
+      .attr("aria-invalid", String(!consentAccepted));
+    $consent.closest(".consent-check").toggleClass("has-error", !consentAccepted);
+
+    if (!this.checkValidity() || !consentAccepted) {
+      event.stopPropagation();
+      $("#formStatus")
+        .removeClass("is-success")
+        .addClass("is-error")
+        .text("Revisa los campos obligatorios y confirma la autorización de contacto.");
+
+      const firstInvalidField = this.querySelector(":invalid");
+      if (firstInvalidField) {
+        firstInvalidField.focus();
+      }
+      return;
+    }
 
     const destination = $(this).data("destination");
     const name = $("#name").val().trim();
@@ -255,8 +293,10 @@ $(function () {
     const message = $("#message").val().trim();
     const status = `Solicitud preparada para ${destination}. ${name}, recibimos tu interés por: ${model}.`;
 
-    $("#formStatus").text(status);
-    $(".submit-btn").html('<i class="bi bi-check2-circle" aria-hidden="true"></i> Solicitud preparada');
+    $consent.removeClass("is-invalid").attr("aria-invalid", "false");
+    $consent.closest(".consent-check").removeClass("has-error");
+    $("#formStatus").removeClass("is-error").addClass("is-success").text(status);
+    $form.find(".submit-btn").html('<i class="bi bi-check2-circle" aria-hidden="true"></i> Solicitud preparada');
 
     const mailSubject = encodeURIComponent("Cotización Tiny House Osorno");
     const mailBody = encodeURIComponent(`Nombre: ${name}\nCorreo: ${$("#email").val()}\nTeléfono: ${$("#phone").val()}\nModelo: ${model}\nMensaje: ${message}`);

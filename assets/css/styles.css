@@ -1509,7 +1509,7 @@ p {
   font-weight: 900;
 }
 
-.quote-form input,
+.quote-form input:not([type="checkbox"]),
 .quote-form select,
 .quote-form textarea {
   width: 100%;
@@ -1528,12 +1528,90 @@ p {
   resize: vertical;
 }
 
-.quote-form input:focus,
+.quote-form input:not([type="checkbox"]):focus,
 .quote-form select:focus,
 .quote-form textarea:focus {
   outline: 0;
   border-color: var(--accent);
   box-shadow: 0 0 0 4px rgba(239, 90, 42, 0.18);
+}
+
+.consent-check {
+  margin-top: 18px;
+  padding: 14px 16px 14px 44px;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: calc(var(--radius) - 2px);
+  background: rgba(255, 255, 255, 0.04);
+  transition:
+    border-color 180ms var(--ease-out),
+    background-color 180ms var(--ease-out);
+}
+
+.quote-form .consent-check .form-check-input {
+  width: 1.15rem;
+  height: 1.15rem;
+  min-height: 1.15rem;
+  margin-top: 0.16rem;
+  margin-left: -1.75rem;
+  padding: 0;
+  border: 1px solid rgba(255, 255, 255, 0.48);
+  border-radius: 4px;
+  background-color: rgba(255, 255, 255, 0.1);
+  cursor: pointer;
+  transition:
+    border-color 180ms var(--ease-out),
+    background-color 180ms var(--ease-out),
+    box-shadow 180ms var(--ease-out);
+}
+
+.quote-form .consent-check .form-check-input:checked {
+  border-color: var(--accent);
+  background-color: var(--accent);
+}
+
+.quote-form .consent-check .form-check-input:focus {
+  outline: 0;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 4px rgba(239, 90, 42, 0.22);
+}
+
+.quote-form .consent-check .form-check-label {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.82);
+  font-size: 0.88rem;
+  font-weight: 700;
+  line-height: 1.45;
+  cursor: pointer;
+}
+
+.quote-form .consent-check .invalid-feedback {
+  margin-top: 8px;
+  color: #ffb4ab;
+  font-size: 0.8rem;
+  font-weight: 700;
+  line-height: 1.35;
+}
+
+.quote-form .consent-check.has-error {
+  border-color: rgba(255, 129, 118, 0.82);
+  background: rgba(172, 46, 37, 0.16);
+}
+
+.quote-form .consent-check.has-error .form-check-label {
+  color: #ffd0cc;
+}
+
+.quote-form .consent-check .form-check-input.is-invalid {
+  border-color: #ff8176;
+  box-shadow: 0 0 0 3px rgba(255, 129, 118, 0.16);
+}
+
+.quote-form .consent-check.has-error .invalid-feedback {
+  display: block;
+}
+
+.consent-check + .submit-btn {
+  margin-top: 16px;
 }
 
 .submit-btn {
@@ -1545,6 +1623,14 @@ p {
   min-height: 24px;
   margin-top: 14px;
   color: rgba(255, 255, 255, 0.78);
+}
+
+.form-status.is-error {
+  color: #ffb4ab;
+}
+
+.form-status.is-success {
+  color: #bdebc9;
 }
 
 .site-footer {
@@ -1919,7 +2005,7 @@ p {
     margin-bottom: 6px;
   }
 
-  .quote-form input,
+  .quote-form input:not([type="checkbox"]),
   .quote-form select,
   .quote-form textarea {
     min-height: 42px;
@@ -2455,7 +2541,7 @@ p {
     padding: 18px;
   }
 
-  .quote-form input,
+  .quote-form input:not([type="checkbox"]),
   .quote-form select,
   .quote-form textarea {
     min-height: 44px;

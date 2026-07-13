@@ -1,116 +1,273 @@
-# Tiny House Osorno - Manual de edición
+# Tiny House Osorno
 
-Sitio estático construido con `index.html`, `styles.css`, `script.js`, Bootstrap 5.3.3 y jQuery 3.7.1.
+Sitio web estático para la presentación y cotización de viviendas modulares de Tiny House Osorno. La implementación actual reúne el catálogo comercial, precios, fichas detalladas, especificaciones constructivas, proceso de compra, talleres, preguntas frecuentes y canales de contacto.
 
-## 1. Hero con fondo cambiante
+Última revisión del manual: 13 de julio de 2026.
 
-Las rutas del hero están en `index.html`:
+## Tecnologías
 
-- Línea 50: `bg-hero1.jpeg`.
-- Línea 51: `bg-hero2.jpeg`.
+- HTML5 en `index.html`.
+- CSS personalizado en `assets/css/styles.css`.
+- JavaScript y jQuery en `assets/js/script.js`.
+- Bootstrap 5.3.3 y Bootstrap Icons 1.11.3 desde CDN.
+- jQuery 3.7.1 desde CDN.
+- Google Maps embebido para las ubicaciones de los talleres.
 
-El cross-fade está en `styles.css`, líneas 300 a 308. El temporizador está en `script.js`, líneas 48 a 67, y cambia la imagen cada 6000 ms.
+No existe un proceso de compilación ni dependencias locales. El sitio puede servirse directamente como contenido estático.
 
-## 2. Inventario de 11 modelos
+## Estructura del proyecto
 
-Las tarjetas se encuentran dentro de `.portfolio-track` en `index.html`. Cada tarjeta abre un modal Bootstrap independiente y contiene un enlace directo de cotización a Marcelo Andrade.
+```text
+web/
+├── index.html
+├── README.md
+└── assets/
+    ├── css/
+    │   └── styles.css
+    ├── js/
+    │   └── script.js
+    └── img/
+        ├── logo.png
+        ├── bg-hero1.jpeg
+        ├── bg-hero2.jpeg
+        ├── elegirnos.jpeg
+        ├── taller.jpg
+        ├── construccion/
+        │   ├── construccion1.jpg
+        │   ├── construccion2.jpg
+        │   └── construccion3.jpg
+        └── modelos/
+            ├── tiny/
+            ├── ralun/
+            ├── frutillar/
+            ├── cochamo/
+            ├── puelo/
+            ├── pucon/
+            ├── puyehue/
+            ├── llanquihue/
+            ├── patagonia/
+            ├── ranco/
+            ├── chiloe/
+            └── tronador/
+```
 
-| Línea de imagen | Modelo | Metraje | Portada | Modal |
-| --- | --- | --- | --- | --- |
-| 117 | Tiny | 18 mt² | `cat-modelo-tiny.jpg` | `#modalTiny` |
-| 130 | Flopy | 18 mt² | `cat-modelo-flopy.jpg` | `#modalFlopy` |
-| 143 | Mirasur | 21 mt² | `cat-modelo-mirasur.jpg` | `#modalMirasur` |
-| 156 | Ralún | 21 mt² | `cat-modelo-ralun.jpg` | `#modalRalun` |
-| 169 | VIP | 24 mt² | `cat-modelo-vip.jpg` | `#modalVip` |
-| 182 | Cochamó | 30 mt² | `cat-modelo-cochamo.jpg` | `#modalCochamo` |
-| 195 | Puelo | 36 mt² | `cat-modelo-puelo.jpg` | `#modalPuelo` |
-| 208 | Llanquihue | 48 mt² | `cat-modelo-llanquihue.jpg` | `#modalLlanquihue` |
-| 221 | Patagonia | 54 mt², 3 módulos | `cat-modelo-patagonia.jpg` | `#modalPatagonia` |
-| 234 | Oficina Corporativa | A medida | `cat-modelo-oficina-corporativa.jpg` | `#modalOficina` |
-| 247 | Food Truck / Comercial | Comercial | `cat-modelo-food-truck.jpg` | `#modalFoodTruck` |
+## Secciones vigentes
 
-El carrusel principal se estiliza desde `styles.css`, línea 613. La pista está en la línea 625 y las acciones de tarjeta desde la línea 683. La navegación se controla en `script.js`, líneas 80 a 99 y 178 a 186.
-
-El cálculo es automático: muestra tres modelos en escritorio, dos en tablet y uno en móvil. El contador toma la cantidad real de `.portfolio-card`, por lo que actualmente informa un total de 11.
-
-## 3. Imágenes de los 11 modales
-
-Cada modal contiene exactamente tres imágenes: exterior, interior y plano. Las secuencias están escritas directamente en `index.html`.
-
-| Líneas HTML | Modelo | Archivos que se deben reemplazar |
+| Sección | Ancla | Contenido principal |
 | --- | --- | --- |
-| 617 a 619 | Tiny | `modal-tiny-ext.jpg`, `modal-tiny-int.jpg`, `modal-tiny-plano.jpg` |
-| 658 a 660 | Flopy | `modal-flopy-ext.jpg`, `modal-flopy-int.jpg`, `modal-flopy-plano.jpg` |
-| 699 a 701 | Mirasur | `modal-mirasur-ext.jpg`, `modal-mirasur-int.jpg`, `modal-mirasur-plano.jpg` |
-| 740 a 742 | Ralún | `modal-ralun-ext.jpg`, `modal-ralun-int.jpg`, `modal-ralun-plano.jpg` |
-| 781 a 783 | VIP | `modal-vip-ext.jpg`, `modal-vip-int.jpg`, `modal-vip-plano.jpg` |
-| 819 a 821 | Cochamó | `modal-cochamo-ext.jpg`, `modal-cochamo-int.jpg`, `modal-cochamo-plano.jpg` |
-| 852 a 854 | Puelo | `modal-puelo-ext.jpg`, `modal-puelo-int.jpg`, `modal-puelo-plano.jpg` |
-| 885 a 887 | Llanquihue | `modal-llanquihue-ext.jpg`, `modal-llanquihue-int.jpg`, `modal-llanquihue-plano.jpg` |
-| 918 a 920 | Patagonia | `modal-patagonia-ext.jpg`, `modal-patagonia-int.jpg`, `modal-patagonia-plano.jpg` |
-| 951 a 953 | Oficina Corporativa | `modal-oficina-corporativa-ext.jpg`, `modal-oficina-corporativa-int.jpg`, `modal-oficina-corporativa-plano.jpg` |
-| 984 a 986 | Food Truck / Comercial | `modal-food-truck-ext.jpg`, `modal-food-truck-int.jpg`, `modal-food-truck-plano.jpg` |
+| Hero | `#inicio` | Presentación comercial, llamadas a la acción y fondo rotativo. |
+| Introducción | Sin ancla | Explicación del ancho transportable y personalización del diseño. |
+| Catálogo | `#servicios` | Carrusel con 12 modelos, metrajes, precios y accesos a cotización. |
+| Por qué elegirnos | `#ingenieria` | Más de 600 módulos, postventa y fotografía del equipo. |
+| Fabricación | `#fabricacion` | Chasis, aislación, tabiquería y revestimientos. |
+| Inclusiones y extras | `#incluye` | Exclusiones del valor base, obras opcionales y extras cotizables. |
+| Proceso de compra | `#proceso` | Línea de tiempo interactiva de 8 etapas. |
+| Talleres | `#ubicacion` | Mapas de Osorno y Temuco sobre un fondo fotográfico atenuado. |
+| Preguntas frecuentes | `#faq` | Acordeón con 5 consultas comerciales y técnicas. |
+| Contacto | `#contacto` | Tres contactos de WhatsApp y formulario de cotización. |
 
-Convención de nombres:
+## Hero
 
-- `ext`: fotografía o render exterior.
-- `int`: fotografía o render interior.
-- `plano`: planta o plano referencial.
+El Hero utiliza dos imágenes:
 
-Los archivos actuales son placeholders JPEG válidos creados con el material existente para evitar errores 404. Sustituye su contenido manteniendo exactamente los mismos nombres y extensiones.
+- `assets/img/bg-hero1.jpeg`
+- `assets/img/bg-hero2.jpeg`
 
-Recomendación: imágenes de 1800 x 1200 px, relación 3:2 y peso menor a 350 KB.
+`script.js` alterna ambas imágenes cada 5 segundos mediante un fundido controlado por las clases `.hero-slide` y `.active`.
 
-## 4. Comportamiento de los modales
+Actualmente comunica:
 
-Cada tarjeta usa un `data-bs-target` diferente. Bootstrap abre directamente el modal correspondiente, sin compartir paneles ocultos.
+- Viviendas modulares transportables.
+- Chasis de hierro de 4 mm y perfil 100x50.
+- Aislación con lana de vidrio en todas las caras.
+- Entrega de las viviendas terminadas desde fábrica.
 
-La interacción por teclado obtiene el selector de `data-bs-target` en `script.js`, líneas 197 a 201. Cada mini-slider vuelve a su primera imagen al abrirse mediante el bloque de líneas 208 a 213.
+## Catálogo actual de 12 modelos
 
-El enlace `Cotizar` detiene la propagación del clic en `script.js`, líneas 204 a 206. Así abre WhatsApp sin activar el modal de la tarjeta.
+Las tarjetas están dentro de `.portfolio-track`. Cada una incluye portada, metraje, precio, acceso al modal y enlace directo de WhatsApp.
 
-En pantallas de hasta 768 px, cada modal conserva exactamente el 75% del ancho del viewport. La regla está en `styles.css`, líneas 2090 a 2092.
+| Modelo | Metraje | Precio publicado | Portada | Modal | Imágenes |
+| --- | ---: | ---: | --- | --- | ---: |
+| Tiny | 18 mt² | Desde $6.990.000 | `modelos/tiny/tiny1.jpeg` | `#modalTiny` | 3 |
+| Ralún | 21 mt² | Desde $8.490.000 | `modelos/ralun/ralun1.jpeg` | `#modalRalun` | 4 |
+| Frutillar | 25.5 mt² | Desde $9.990.000 | `modelos/frutillar/frutillar1.jpeg` | `#modalFrutillar` | 4 |
+| Cochamó | 30 mt² | Desde $13.490.000 | `modelos/cochamo/cochamo1.jpeg` | `#modalCochamo` | 4 |
+| Puelo | 36 mt² | Desde $14.990.000 | `modelos/puelo/puelo1.jpeg` | `#modalPuelo` | 4 |
+| Pucon | 39 mt² | Desde $15.990.000 | `modelos/pucon/pucon1.jpeg` | `#modalPucon` | 4 |
+| Puyehue | 42 mt² | Desde $16.990.000 | `modelos/puyehue/puyehue1.jpeg` | `#modalPuyehue` | 4 |
+| Llanquihue | 48 mt² | Desde $19.990.000 | `modelos/llanquihue/llanquihue1.jpeg` | `#modalLlanquihue` | 3 |
+| Patagonia | 54 mt² | Desde $22.990.000 | `modelos/patagonia/patagonia1.jpeg` | `#modalPatagonia` | 4 |
+| Ranco | 66 mt² | Desde $33.990.000 | `modelos/ranco/ranco1.jpeg` | `#modalRanco` | 4 |
+| Chiloé | 72 mt² | Desde $31.990.000 | `modelos/chiloe/chiloe1.jpeg` | `#modalChiloe` | 4 |
+| Tronador | 94 mt² | Desde $38.880.000 | `modelos/tronador/tronador1.jpeg` | `#modalTronador` | 4 |
 
-## 5. Galería de fabricación
+Las rutas de la tabla son relativas a `assets/img/`.
 
-Esta sección no fue modificada. Sus rutas continúan en `index.html`:
+### Comportamiento del carrusel
 
-- Línea 315: `chasis-taller.png`.
-- Línea 326: `aislacion-estructural.png`.
-- Línea 336: `montaje-interiores.png`.
+- Muestra 3 tarjetas en escritorio, 2 en tablet y 1 en móvil.
+- Las flechas modifican el índice del carrusel sin recargar la página.
+- El contador se calcula desde la cantidad real de elementos `.portfolio-card`.
+- Las tarjetas pueden abrirse con clic o teclado.
+- El enlace `Cotizar` detiene la propagación para abrir WhatsApp sin activar el modal.
+- Los precios de las tarjetas usan `.portfolio-price`.
 
-La grilla comienza en `styles.css`, línea 904. Se mantienen sus restricciones de altura y comportamiento responsive.
+## Modales del catálogo
 
-## 6. Cómo sustituir imágenes
+Cada modelo tiene un modal Bootstrap independiente y un carrusel de imágenes propio. Las galerías usan la convención:
 
-1. Exporta el render o fotografía con el nombre exacto indicado en las tablas.
-2. Conserva la extensión `.jpg`.
-3. Reemplaza el archivo en la raíz del proyecto.
-4. Recarga Live Server sin caché.
-5. Revisa portada, exterior, interior y plano en escritorio y móvil.
+```text
+assets/img/modelos/<slug>/<slug>1.jpeg
+assets/img/modelos/<slug>/<slug>2.jpeg
+assets/img/modelos/<slug>/<slug>3.jpeg
+assets/img/modelos/<slug>/<slug>4.jpeg
+```
 
-## 7. Cómo añadir otro modelo
+Tiny y Llanquihue utilizan tres imágenes. Los otros diez modelos utilizan cuatro, para un total actual de 46 imágenes de catálogo.
 
-1. Duplica una `.portfolio-card` dentro de `.portfolio-track`.
-2. Define un `data-bs-target` único.
-3. Duplica un `.model-modal` completo y asigna el mismo ID.
-4. Cambia los IDs del modal, título y carrusel interno.
-5. Añade las tres imágenes y el enlace personalizado de WhatsApp.
+Cada modal contiene:
 
-## 8. Interacciones preservadas
+- Nombre y metraje del modelo.
+- Precio en la misma línea del metraje mediante `.model-modal-meta` y `.model-modal-price`.
+- Descripción comercial.
+- Lista técnica `.model-spec-list`.
+- Botón de cotización por WhatsApp.
+- Carrusel que vuelve a la primera imagen cada vez que se abre el modal.
 
-- Hero automático cada 6 segundos.
-- Proceso de compra automático cada 4 segundos.
-- FAQ inicialmente cerrada.
-- Carrusel con flechas, teclado y contador dinámico.
-- Modales Bootstrap con carrusel interno.
-- Formulario y navegación responsive sin cambios.
+En pantallas de hasta 768 px, el diálogo conserva un ancho aproximado del 75% del viewport y reorganiza la galería sobre la información.
 
-## 9. Lista antes de publicar
+## Estándar de fabricación
 
-- Confirmar que las 44 imágenes JPG definitivas existan.
-- Revisar mayúsculas, minúsculas y extensiones.
-- Probar los 11 enlaces de WhatsApp.
-- Probar los 11 modales y sus 33 imágenes.
-- Revisar en 390 px, 768 px, 1280 px y 1440 px.
+La sección `#fabricacion` documenta el estándar constructivo vigente:
+
+- Chasis de hierro rígido de 4 mm de espesor y dimensiones de 100x50.
+- Recubrimiento antioxidante sobre la estructura base.
+- Aislación multicapa con lana de vidrio de alto rendimiento térmico en todas las caras.
+- Tabiquería estructural en vulcometal o pino de 2x3, a elección del cliente.
+- Revestimiento exterior en metal siding o smart panel de alta durabilidad y resistencia climática.
+
+Las menciones equivalentes dentro de las listas técnicas de los modales fueron normalizadas con este mismo estándar.
+
+Las imágenes de fabricación activas son:
+
+- `assets/img/construccion/construccion1.jpg`
+- `assets/img/construccion/construccion2.jpg`
+- `assets/img/construccion/construccion3.jpg`
+
+## Talleres y mapas
+
+La sección `#ubicacion` presenta dos tarjetas con mapas embebidos:
+
+- Taller Osorno.
+- Taller Temuco.
+
+La imagen `assets/img/taller.jpg` cubre el 100% del fondo de la sección mediante `.location-section::after`. Sobre ella se aplica una capa clara semitransparente para reducir el contraste y mantener legibles los encabezados y mapas.
+
+El fondo permanece centrado, sin repetición y con `background-size: cover` tanto en escritorio como en móvil. En pantallas pequeñas los mapas se apilan en una sola columna.
+
+## Formulario de cotización
+
+El formulario `#quoteForm` solicita:
+
+- Nombre completo.
+- Correo electrónico.
+- Teléfono o WhatsApp.
+- Modelo de interés.
+- Mensaje con información del proyecto.
+
+El selector de modelos contiene como primera opción seleccionable `Modelo personalizado`, seguido de los 12 modelos vigentes del catálogo en el mismo orden.
+
+Las categorías antiguas Flopy, modelos medianos genéricos, gran formato de 120 m² y proyectos de hasta 400 m² ya no forman parte del selector.
+
+Al enviar, `script.js` prepara un enlace `mailto:` dirigido a `tinyhouseosorno@gmail.com`. Este flujo depende de que el visitante tenga un cliente de correo configurado y no almacena datos en un servidor.
+
+## Contacto
+
+La web ofrece acceso directo por WhatsApp a:
+
+- Marcelo Andrade, gestión de proyectos y dirección.
+- Liliana Campos, ejecutiva de ventas.
+- Karla Ortega, ejecutiva de ventas.
+
+También mantiene un botón flotante de WhatsApp, enlaces de cotización en las tarjetas y modales, e Instagram en el pie de página.
+
+## Interacciones y accesibilidad
+
+- Hero automático cada 5 segundos.
+- Proceso de compra automático cada 4 segundos y selección manual de sus 8 etapas.
+- FAQ inicialmente cerrada y con un solo elemento abierto a la vez.
+- Animaciones de entrada con `IntersectionObserver`.
+- Navegación móvil Bootstrap con cierre al seleccionar un enlace.
+- Apertura de tarjetas mediante teclado con `Enter` o barra espaciadora.
+- Estados `aria-live` en el contador, la línea de tiempo y el formulario.
+- Textos alternativos en imágenes informativas.
+- Carga diferida en imágenes secundarias y mapas.
+- Reducción de animaciones mediante `prefers-reduced-motion`.
+
+## Diseño responsivo
+
+Los principales puntos de adaptación están definidos alrededor de:
+
+- Escritorio: desde 992 px.
+- Tablet: hasta 991.98 px.
+- Móvil: hasta 768 px.
+- Móvil pequeño: hasta 575.98 px.
+
+En móvil se apilan las grillas, el carrusel muestra una tarjeta, los mapas ocupan todo el ancho disponible y los modales reorganizan su contenido verticalmente.
+
+## Cómo actualizar un precio
+
+El precio de cada modelo aparece dos veces en `index.html`:
+
+1. En la tarjeta, dentro de `.portfolio-price`.
+2. En el modal, dentro de `.model-modal-price`.
+
+Ambos valores deben cambiarse juntos para evitar inconsistencias. Si el nombre o metraje también cambia, se debe actualizar la opción correspondiente del formulario.
+
+## Cómo sustituir imágenes de un modelo
+
+1. Localiza la carpeta `assets/img/modelos/<slug>/`.
+2. Conserva los nombres secuenciales existentes.
+3. Mantén la extensión `.jpeg` usada por ese modelo.
+4. Optimiza las imágenes antes de publicarlas.
+5. Revisa la portada y todas las diapositivas del modal en escritorio y móvil.
+
+Se recomienda una relación cercana a 3:2, resolución suficiente para pantallas grandes y un peso reducido para proteger el tiempo de carga.
+
+## Cómo añadir o retirar un modelo
+
+Para añadir un modelo:
+
+1. Añade su carpeta e imágenes bajo `assets/img/modelos/`.
+2. Duplica una `.portfolio-card` dentro de `.portfolio-track`.
+3. Define un `data-model` y un `data-bs-target` únicos.
+4. Duplica un `.model-modal` y sincroniza todos sus identificadores.
+5. Actualiza imágenes, nombre, metraje, precio, descripción y enlace de WhatsApp.
+6. Añade el modelo al selector `#model` del formulario.
+7. Prueba tarjeta, modal, carrusel interno y cotización.
+
+Para retirar un modelo se deben eliminar su tarjeta, modal y opción del formulario. La carpeta de imágenes puede eliminarse solo después de comprobar que ninguna ruta del sitio todavía la utiliza.
+
+## Ejecución local
+
+Puede abrirse con Live Server o con cualquier servidor HTTP estático. Por ejemplo:
+
+```powershell
+python -m http.server 4173 --bind 127.0.0.1
+```
+
+Después visita `http://127.0.0.1:4173/`.
+
+Es recomendable usar un servidor en lugar de abrir `index.html` directamente para reproducir mejor el comportamiento de producción.
+
+## Lista antes de publicar
+
+- Confirmar los 12 nombres, metrajes y precios en tarjetas y modales.
+- Confirmar que el formulario contenga `Modelo personalizado` y los mismos 12 modelos.
+- Probar los 12 modales y sus 46 imágenes.
+- Probar los enlaces de WhatsApp de tarjetas, modales y contactos.
+- Verificar los mapas de Osorno y Temuco.
+- Revisar el fondo `taller.jpg` en escritorio y móvil.
+- Revisar el sitio en 390 px, 768 px, 1280 px y 1440 px.
+- Comprobar navegación por teclado y preferencia de movimiento reducido.
 - Ejecutar Lighthouse con las imágenes finales optimizadas.

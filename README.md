@@ -1,8 +1,8 @@
 # Tiny House Osorno
 
-Sitio web estático para la presentación y cotización de viviendas modulares de Tiny House Osorno. La implementación actual reúne el catálogo comercial, precios, fichas detalladas, especificaciones constructivas, proceso de compra, talleres, preguntas frecuentes y canales de contacto.
+Sitio web estático para la presentación y cotización de viviendas modulares de Tiny House Osorno. La implementación actual reúne el catálogo comercial, precios, fichas detalladas, especificaciones constructivas, proceso de compra, talleres, preguntas frecuentes, contacto por WhatsApp y una página de garantías, condiciones y privacidad.
 
-Última revisión del manual: 13 de julio de 2026.
+Última revisión del manual: 14 de julio de 2026.
 
 ## Tecnologías
 
@@ -20,6 +20,7 @@ No existe un proceso de compilación ni dependencias locales. El sitio puede ser
 ```text
 web/
 ├── index.html
+├── privacidad.html
 ├── README.md
 └── assets/
     ├── css/
@@ -64,7 +65,7 @@ web/
 | Proceso de compra | `#proceso` | Línea de tiempo interactiva de 8 etapas. |
 | Talleres | `#ubicacion` | Mapas de Osorno y Temuco sobre un fondo fotográfico atenuado. |
 | Preguntas frecuentes | `#faq` | Acordeón con 5 consultas comerciales y técnicas. |
-| Contacto | `#contacto` | Tres contactos de WhatsApp y formulario de cotización. |
+| Contacto | `#contacto` | Tres contactos y botones directos de cotización por WhatsApp. |
 
 ## Hero
 
@@ -165,22 +166,6 @@ La imagen `assets/img/taller.jpg` cubre el 100% del fondo de la sección mediant
 
 El fondo permanece centrado, sin repetición y con `background-size: cover` tanto en escritorio como en móvil. En pantallas pequeñas los mapas se apilan en una sola columna.
 
-## Formulario de cotización
-
-El formulario `#quoteForm` solicita:
-
-- Nombre completo.
-- Correo electrónico.
-- Teléfono o WhatsApp.
-- Modelo de interés.
-- Mensaje con información del proyecto.
-
-El selector de modelos contiene como primera opción seleccionable `Modelo personalizado`, seguido de los 12 modelos vigentes del catálogo en el mismo orden.
-
-Las categorías antiguas Flopy, modelos medianos genéricos, gran formato de 120 m² y proyectos de hasta 400 m² ya no forman parte del selector.
-
-Al enviar, `script.js` prepara un enlace `mailto:` dirigido a `tinyhouseosorno@gmail.com`. Este flujo depende de que el visitante tenga un cliente de correo configurado y no almacena datos en un servidor.
-
 ## Contacto
 
 La web ofrece acceso directo por WhatsApp a:
@@ -189,7 +174,24 @@ La web ofrece acceso directo por WhatsApp a:
 - Liliana Campos, ejecutiva de ventas.
 - Karla Ortega, ejecutiva de ventas.
 
-También mantiene un botón flotante de WhatsApp, enlaces de cotización en las tarjetas y modales, e Instagram en el pie de página.
+El CTA final ya no contiene formulario, tarjetas laterales ni procesa datos. En su lugar, presenta un único panel centrado con botones directos hacia los WhatsApp de los tres asesores y una nota de consentimiento enlazada a `privacidad.html`. También se mantienen el botón flotante, los enlaces de cotización en tarjetas y modales, e Instagram en el pie de página.
+
+## Garantías, compra y privacidad
+
+El archivo `privacidad.html` comparte la cabecera, navegación, identidad visual y pie de página del inicio. Su contenido incluye:
+
+- Garantía de 1 año y detalle de coberturas.
+- Condición de pago total para garantía y post venta.
+- Procedimiento y canal exclusivo de post venta por WhatsApp.
+- Esquema de pagos 50%, 30% y 20%.
+- Condición de entrega terminada desde fábrica.
+- Datos personales recopilados, finalidad y resguardo.
+- Proceso de adecuación a la Ley N° 21.719, cuya entrada en vigencia está fijada para el 1 de diciembre de 2026.
+- Categorías de datos iniciales y contractuales claramente separadas.
+- Derechos de acceso, rectificación, cancelación o supresión y oposición, ejercibles por correo electrónico.
+- Condiciones del derecho a retracto para viviendas fabricadas por encargo conforme al artículo 3 bis de la Ley N° 19.496.
+
+El enlace del pie de página lleva directamente a esta página legal. El crédito “Powered By Human Web Design” enlaza al sitio de Human Web Design en una pestaña nueva y utiliza los atributos de seguridad recomendados.
 
 ## Interacciones y accesibilidad
 
@@ -199,7 +201,7 @@ También mantiene un botón flotante de WhatsApp, enlaces de cotización en las 
 - Animaciones de entrada con `IntersectionObserver`.
 - Navegación móvil Bootstrap con cierre al seleccionar un enlace.
 - Apertura de tarjetas mediante teclado con `Enter` o barra espaciadora.
-- Estados `aria-live` en el contador, la línea de tiempo y el formulario.
+- Estados `aria-live` en el contador y la línea de tiempo.
 - Textos alternativos en imágenes informativas.
 - Carga diferida en imágenes secundarias y mapas.
 - Reducción de animaciones mediante `prefers-reduced-motion`.
@@ -222,7 +224,7 @@ El precio de cada modelo aparece dos veces en `index.html`:
 1. En la tarjeta, dentro de `.portfolio-price`.
 2. En el modal, dentro de `.model-modal-price`.
 
-Ambos valores deben cambiarse juntos para evitar inconsistencias. Si el nombre o metraje también cambia, se debe actualizar la opción correspondiente del formulario.
+Ambos valores deben cambiarse juntos para evitar inconsistencias.
 
 ## Cómo sustituir imágenes de un modelo
 
@@ -243,10 +245,9 @@ Para añadir un modelo:
 3. Define un `data-model` y un `data-bs-target` únicos.
 4. Duplica un `.model-modal` y sincroniza todos sus identificadores.
 5. Actualiza imágenes, nombre, metraje, precio, descripción y enlace de WhatsApp.
-6. Añade el modelo al selector `#model` del formulario.
-7. Prueba tarjeta, modal, carrusel interno y cotización.
+6. Prueba tarjeta, modal, carrusel interno y cotización por WhatsApp.
 
-Para retirar un modelo se deben eliminar su tarjeta, modal y opción del formulario. La carpeta de imágenes puede eliminarse solo después de comprobar que ninguna ruta del sitio todavía la utiliza.
+Para retirar un modelo se deben eliminar su tarjeta y modal. La carpeta de imágenes puede eliminarse solo después de comprobar que ninguna ruta del sitio todavía la utiliza.
 
 ## Ejecución local
 
@@ -263,9 +264,10 @@ Es recomendable usar un servidor en lugar de abrir `index.html` directamente par
 ## Lista antes de publicar
 
 - Confirmar los 12 nombres, metrajes y precios en tarjetas y modales.
-- Confirmar que el formulario contenga `Modelo personalizado` y los mismos 12 modelos.
 - Probar los 12 modales y sus 46 imágenes.
 - Probar los enlaces de WhatsApp de tarjetas, modales y contactos.
+- Probar el enlace del pie de página y los anclajes internos de `privacidad.html`.
+- Verificar el WhatsApp de post venta `+56 9 2175 9503` y su horario publicado.
 - Verificar los mapas de Osorno y Temuco.
 - Revisar el fondo `taller.jpg` en escritorio y móvil.
 - Revisar el sitio en 390 px, 768 px, 1280 px y 1440 px.

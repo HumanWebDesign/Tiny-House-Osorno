@@ -2,7 +2,7 @@
 
 Sitio web estático para la presentación y cotización de viviendas modulares de Tiny House Osorno. La implementación actual reúne el catálogo comercial, precios, fichas detalladas, especificaciones constructivas, proceso de compra, talleres, preguntas frecuentes, contacto por WhatsApp y una página de garantías, condiciones y privacidad.
 
-Última revisión del manual: 14 de julio de 2026.
+Última revisión del manual: 15 de julio de 2026.
 
 ## Tecnologías
 
@@ -21,6 +21,10 @@ No existe un proceso de compilación ni dependencias locales. El sitio puede ser
 web/
 ├── index.html
 ├── privacidad.html
+├── vercel.json
+├── robots.txt
+├── sitemap.xml
+├── llms.txt
 ├── README.md
 └── assets/
     ├── css/
@@ -174,7 +178,7 @@ La web ofrece acceso directo por WhatsApp a:
 - Liliana Campos, ejecutiva de ventas.
 - Karla Ortega, ejecutiva de ventas.
 
-El CTA final ya no contiene formulario, tarjetas laterales ni procesa datos. En su lugar, presenta un único panel centrado con botones directos hacia los WhatsApp de los tres asesores y una nota de consentimiento enlazada a `privacidad.html`. También se mantienen el botón flotante, los enlaces de cotización en tarjetas y modales, e Instagram en el pie de página.
+El CTA final ya no contiene formulario, tarjetas laterales ni procesa datos. En su lugar, presenta un único panel centrado con botones directos hacia los WhatsApp de los tres asesores y una nota de consentimiento enlazada a la URL limpia `/privacidad`. También se mantienen el botón flotante, los enlaces de cotización en tarjetas y modales, e Instagram en el pie de página.
 
 ## Garantías, compra y privacidad
 
@@ -192,6 +196,20 @@ El archivo `privacidad.html` comparte la cabecera, navegación, identidad visual
 - Condiciones del derecho a retracto para viviendas fabricadas por encargo conforme al artículo 3 bis de la Ley N° 19.496.
 
 El enlace del pie de página lleva directamente a esta página legal. El crédito “Powered By Human Web Design” enlaza al sitio de Human Web Design en una pestaña nueva y utiliza los atributos de seguridad recomendados.
+
+## SEO, AEO y despliegue en Vercel
+
+La configuración de producción utiliza el dominio canónico `https://tinyhouseosorno.cl` e incluye:
+
+- `vercel.json`: URLs limpias sin `.html`, sin barra final y encabezados HTTP de seguridad.
+- `robots.txt`: acceso público para buscadores y rastreadores de IA, además del enlace absoluto al sitemap.
+- `sitemap.xml`: contiene únicamente el inicio y la página `/privacidad`.
+- `llms.txt`: resumen en Markdown de la empresa, cobertura, estándar constructivo y contactos directos.
+- Metadatos SEO, Open Graph y Twitter Card en el `<head>`.
+- Datos estructurados JSON-LD para la empresa, sus talleres de Osorno y Temuco y la autoría web de Human Web Design.
+- Enlaces internos normalizados hacia las URLs limpias de producción.
+
+La imagen social debe publicarse como `assets/img/og-preview.png` en formato PNG y con dimensiones de 1200 × 630 px. Hasta que ese archivo exista en producción, WhatsApp y otras redes no podrán mostrar la previsualización configurada.
 
 ## Interacciones y accesibilidad
 
@@ -266,10 +284,12 @@ Es recomendable usar un servidor en lugar de abrir `index.html` directamente par
 - Confirmar los 12 nombres, metrajes y precios en tarjetas y modales.
 - Probar los 12 modales y sus 46 imágenes.
 - Probar los enlaces de WhatsApp de tarjetas, modales y contactos.
-- Probar el enlace del pie de página y los anclajes internos de `privacidad.html`.
+- Probar el enlace limpio `/privacidad` y sus enlaces de regreso al inicio.
 - Verificar el WhatsApp de post venta `+56 9 2175 9503` y su horario publicado.
 - Verificar los mapas de Osorno y Temuco.
 - Revisar el fondo `taller.jpg` en escritorio y móvil.
 - Revisar el sitio en 390 px, 768 px, 1280 px y 1440 px.
 - Comprobar navegación por teclado y preferencia de movimiento reducido.
 - Ejecutar Lighthouse con las imágenes finales optimizadas.
+- Confirmar que `assets/img/og-preview.png` exista a 1200 × 630 px.
+- Validar `robots.txt`, `sitemap.xml` y los datos estructurados después del despliegue.
